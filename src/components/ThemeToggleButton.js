@@ -1,30 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ThemeContext } from "./ThemeProvider";
 
 const ThemeToggleButton = () => {
-  const [theme, setTheme] = useState(true);
-  const [background, setbackground] = useState('bg-light');
-  const [them, settheme] = useState('light');
-  const [btntheme, setbtntheme] = useState('btn btn-light');
-  const handleChange = (e) => {
-    setTheme(!theme);
-    if(theme == true) {
-        setbackground('bg-dark');
-        settheme('dark');
-        setbtntheme('btn btn-dark')
-    }else {
-        setbackground('bg-light');
-        settheme('light');
-        setbtntheme('btn btn-light');
-    }
-    console.log(theme);
-    console.log(background);
-  };
-  
+  const [toggle, setToggle] = useState("Switch to dark theme");
+  //const [theme1,setTheme1] = useState('light');
 
+  const { theme, setTheme } = useContext(ThemeContext);
+  // console.log(theme);
+
+  let global = () => {
+    if (toggle === "Switch to dark theme") {
+      setTheme("dark");
+      setToggle("Switch to light theme");
+    } else {
+      setTheme("light");
+      setToggle("Switch to dark theme");
+    }
+  };
   return (
     <>
-      <button id="global-theme-toggler" className={btntheme} onClick={() => handleChange()}>
-        Switch to {them} theme
+      <button
+        className={`btn btn-${theme} txt-${theme}`}
+        id="global-theme-toggler"
+        onClick={global}
+      >
+        {toggle}
       </button>
     </>
   );
